@@ -1,3 +1,8 @@
+export enum TemplateType {
+  Local = 'local',
+  Git = 'git',
+  Npm = 'npm',
+}
 export interface Template {
   /**
    * 模板名称
@@ -10,9 +15,11 @@ export interface Template {
   /**
    * 模板类型
    */
-  type?: 'local' | 'git' | 'npm';
+  type?: TemplateType;
   /**
    * 模板拉取路径
+   * 遵循 download-git-repo 的协议:
+   * https://gitlab.com/flippidippi/download-git-repo
    */
   path?: string;
 }
@@ -22,7 +29,7 @@ export interface Template {
  */
 const templates: Template[] = [
   {
-    name: 'simplep-demo',
+    name: 'simple-demo',
     description: 'simplep web template',
   },
 ];

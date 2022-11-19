@@ -1,8 +1,11 @@
 import * as path from 'path';
-import templates from './templates';
-import inquirer from 'inquirer';
+import templates, { Template, TemplateType } from './templates';
+import * as inquirer from 'inquirer';
 import * as fs from 'fs-extra';
-import { checkEmpty } from './utils';
+import { checkEmpty, throwError } from './utils';
+// @ts-ignore
+import download from 'download-git-repo';
+import chalk = require('chalk');
 
 interface CreaterParams {
   dirname: string;
@@ -10,9 +13,9 @@ interface CreaterParams {
 }
 
 export default class Creater {
-  private dirname: string;
+  private readonly dirname: string;
   private templateName: string;
-  private dirPath: string;
+  private readonly dirPath: string;
 
   constructor(params: CreaterParams) {
     this.dirname = params.dirname;
@@ -27,7 +30,6 @@ export default class Creater {
 
     await fs.ensureDir(this.dirPath);
     const isEmpty = await checkEmpty(this.dirPath);
-
     if (!isEmpty) {
       const { go } = await inquirer.prompt({
         type: 'confirm',
@@ -68,7 +70,70 @@ export default class Creater {
     );
 
     if (!template) {
-      throw new Error(`create-tangmouren error: ${this.templateName} `);
+      throwError(` This template [${this.templateName}] does not exist`);
+      return;
     }
+
+    console.log(
+      'create-tangmouren: Please wait while the project is initializing……'
+    );
+
+    switch (template.type) {
+      case TemplateType.Local:
+        this.localGenarate(template);
+        break;
+      case TemplateType.Git:
+        break;
+      case TemplateType.Npm:
+        break;
+      default:
+        this.localGenarate(template);
+    }
+
+    this.printSuccessTips(template);
+  }
+
+  private localGenarate(template: Template) {
+    const { name } = template;
+    const templateDir = path.resolve(__dirname, '../templates', name);
+
+    if (!fs.existsSync(templateDir)) {
+      this.printFaildTips(name);
+    }
+
+    fs.copy(templateDir, this.dirPath, (error) => {
+      if (error) {
+        this.printFaildTips(name);
+      }
+    });
+  }
+
+  private downloadFromGit(template: Template) {
+    const { path, name } = template;
+
+    download(path, this.dirPath, (err: any) => {
+      if (err) {
+        this.printFaildTips(name);
+      }
+    });
+  }
+
+  private installFromNpm() {
+    // TODO: npm 待完善
+  }
+
+  private printSuccessTips(template: Template) {
+    console.log(
+      chalk.greenBright(`\n${template.description} created successfully.\n`)
+    );
+
+    console.log(chalk.cyan(`    cd ${this.dirname}`));
+    console.log(chalk.cyan('    npm install'));
+    console.log(chalk.cyan('    npm run start'));
+    console.log();
+  }
+
+  private printFaildTips(name: string) {
+    throwError(`${name} template creation failed.`);
   }
 }
