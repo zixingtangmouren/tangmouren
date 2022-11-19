@@ -27,3 +27,15 @@ pwa 相关工程
 ## plugin-mpa
 
 多页应用相关工程
+
+## 问题记录
+
+- 如果需要 Eslint 正确验证 TS 需要在 parserOptions.project 中配置
+
+```json
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": ["./tsconfig.base.json"],
+  },
+```

@@ -1,4 +1,7 @@
 {
   "files": [],
-  "references": [{ "path": "packages/tang-cli" }]
+  "references": [
+    { "path": "packages/tang-cli" },
+    { "path": "packages/create-tangmouren" }
+  ]
 }
