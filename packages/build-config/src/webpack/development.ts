@@ -5,7 +5,7 @@ config.mode('development');
 
 config
   .entry('index')
-  .add('src/index')
+  .add('./src/index')
   .end()
   .output.filename('bundle.js')
   .path(path.resolve(process.cwd(), 'dist'))
