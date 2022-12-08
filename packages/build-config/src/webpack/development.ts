@@ -11,10 +11,25 @@ config
   .path(path.resolve(process.cwd(), 'dist'))
   .set('clean', true);
 
-// TODO: 搞清楚如何按想要的顺序插入 loader
-config.module.rule('css').before('css').use('css').loader('style-loader');
+config.module.rule('css').use('style').loader('style-loader').before('css');
+config.module.rule('sass').use('style').loader('style-loader').before('css');
+config.module.rule('less').use('style').loader('style-loader').before('css');
 
-config.devServer.hot(true).open(true);
+// config.module
+//   .rule('css')
+//   .use('MiniCssExtractPlugin')
+//   .loader(MiniCssExtractPlugin.loader)
+//   .before('css');
+// config.module
+//   .rule('sass')
+//   .use('MiniCssExtractPlugin')
+//   .loader(MiniCssExtractPlugin.loader)
+//   .before('css');
+// config.module
+//   .rule('less')
+//   .use('MiniCssExtractPlugin')
+//   .loader(MiniCssExtractPlugin.loader)
+//   .before('css');
 
 config.devtool('eval');
 

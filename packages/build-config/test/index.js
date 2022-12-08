@@ -1,5 +1,9 @@
 const { developConfig } = require('../lib');
 
-console.log('rules', developConfig.default.module.rules.get('css'));
+const rules = developConfig.default.module.rules;
 
-console.log('output', developConfig.default.toConfig().output);
+console.log('rules', rules);
+
+const config = developConfig.default.toConfig();
+
+console.log('output', config);
