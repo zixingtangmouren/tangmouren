@@ -1,10 +1,15 @@
 import Config = require('webpack-chain');
 import HtmlWebpackPlugin = require('html-webpack-plugin');
-import ESLintWebpackPlugin = require('eslint-webpack-plugin');
+import * as path from 'path';
 
 const config = new Config();
 
 config.resolve.extensions.add('.ts').add('.tsx').add('.js').add('.json');
+
+// 解决 babel-loader 找不到情况
+// config.resolveLoader.modules.add(path.resolve(__dirname, '../../node_modules'));
+
+config.context(path.resolve(process.cwd()));
 
 config.module
   .rule('babel')
@@ -143,10 +148,6 @@ config.module
   .use('less')
   .loader('less-loader');
 
-config
-  .plugin('HtmlWebpackPlugin')
-  .use(HtmlWebpackPlugin)
-  // TODO: eslint 非必须
-  .use(ESLintWebpackPlugin);
+config.plugin('HtmlWebpackPlugin').use(HtmlWebpackPlugin);
 
 export default config;

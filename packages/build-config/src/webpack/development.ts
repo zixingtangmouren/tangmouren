@@ -3,6 +3,10 @@ import * as path from 'path';
 
 config.mode('development');
 
+config.devServer
+  .set('static', path.resolve(process.cwd(), './public'))
+  .hot(true);
+
 config
   .entry('index')
   .add('./src/index')

@@ -1,2 +1,4 @@
-export * as developConfig from './webpack/development';
-export * as prodConfig from './webpack/development';
+import developConfig from './webpack/development';
+import prodConfig from './webpack/production';
+
+export { developConfig, prodConfig };
