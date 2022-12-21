@@ -1,5 +1,5 @@
 {
-  "name": "@tang/create-tangmouren",
+  "name": "@tangjs/create-tang",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "watch": "tsc --build ./tsconfig.json --watch"
   },
   "bin": {
-    "create-tangmouren": "bin/index.js"
+    "create-tang": "bin/index.js"
   },
   "keywords": [],
   "author": "",

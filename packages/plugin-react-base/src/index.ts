@@ -1,7 +1,6 @@
 import { IPlugin } from 'build-scripts';
 import { developConfig } from '@tang/build-config';
 import path = require('path');
-import * as fs from 'fs';
 
 const reactBasePlugin: IPlugin = ({
   registerTask,
@@ -46,13 +45,6 @@ const reactBasePlugin: IPlugin = ({
         ];
       });
     }
-
-    console.log('config', config.toConfig());
-    fs.writeFileSync(
-      path.resolve(process.cwd(), 'webpack.js'),
-      JSON.stringify(config.toConfig()),
-      'utf-8'
-    );
   });
 };
 

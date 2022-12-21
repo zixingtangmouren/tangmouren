@@ -19,18 +19,17 @@ export const getVersion = (): string | undefined => {
 export const printExamples = (templates: Template[]) => {
   // 只选择了模板
   const single = [
-    '  $ npm init tangmouren',
+    '  $ npm init tang',
     ...templates.map(
-      (template) => `  $ npm init tangmouren --template ${template.name}`
+      (template) => `  $ npm init tang --template ${template.name}`
     ),
   ];
 
   // 选择了模板和路径
   const all = [
-    '  $ npm init tangmouren app-demo',
+    '  $ npm init tang app-demo',
     ...templates.map(
-      (template) =>
-        `  $ npm init tangmouren app-demo --template ${template.name}`
+      (template) => `  $ npm init tang app-demo --template ${template.name}`
     ),
   ];
 
@@ -60,6 +59,6 @@ export const checkEmpty = async (dirPath: string) => {
  * @param errorMsg
  */
 export const throwError = (errorMsg: string) => {
-  console.log(chalk.redBright(`create-tangmouren Error: ${errorMsg}.`));
+  console.log(chalk.redBright(`create-tang Error: ${errorMsg}.`));
   process.exit(1);
 };

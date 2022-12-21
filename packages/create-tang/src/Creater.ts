@@ -74,9 +74,7 @@ export default class Creater {
       return;
     }
 
-    console.log(
-      'create-tangmouren: Please wait while the project is initializing……'
-    );
+    console.log('create-tang: Please wait while the project is initializing……');
 
     switch (template.type) {
       case TemplateType.Local:

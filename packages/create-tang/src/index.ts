@@ -10,7 +10,7 @@ const pkgVersion = getVersion();
 
   program
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    .name(`create-tangmouren version ${pkgVersion}`)
+    .name(`create-tang version ${pkgVersion}`)
     .usage('<command> [options]');
 
   program.option('--template <template>', 'select a template');
@@ -30,8 +30,8 @@ const pkgVersion = getVersion();
   const templateName =
     options.template !== undefined ? options.template : program.args[1];
 
-  console.log('create-tangmouren version:', pkgVersion);
-  console.log('create-tangmouren args', dirname, templateName);
+  console.log('create-tang version:', pkgVersion);
+  console.log('create-tang args', dirname, templateName);
 
   void new Creater({
     dirname,
